@@ -1,0 +1,433 @@
+[
+    {
+        "id": "00d79f9de308376d",
+        "type": "tab",
+        "label": "플로우 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "388de1236a0efa9c",
+        "type": "io7-hub",
+        "name": "app1",
+        "host": "mqtt",
+        "useTLS": false,
+        "knownPort": true,
+        "port": "1883",
+        "tls": "",
+        "clientid": ""
+    },
+    {
+        "id": "70b4b7fcd74eb3b6",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "5acf4d7056c23dc4",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "e37493204bcc84c3",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "70b4b7fcd74eb3b6",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "5acf4d7056c23dc4",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "370afb24071ccbf1",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "e37493204bcc84c3",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "9b54e2472bf5512f",
+        "type": "io7 out",
+        "z": "00d79f9de308376d",
+        "authentication": "388de1236a0efa9c",
+        "name": "",
+        "deviceId": "lamp1",
+        "cmd": "power",
+        "fmt": "json",
+        "qos": "0",
+        "retain": "false",
+        "x": 950,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d01e93b0db519f07",
+        "type": "io7 in",
+        "z": "00d79f9de308376d",
+        "name": "buttton1",
+        "deviceId": "button1",
+        "authentication": "388de1236a0efa9c",
+        "evt": "status",
+        "fmt": "json",
+        "qos": "0",
+        "allDevices": false,
+        "allEvents": false,
+        "allFormats": false,
+        "x": 260,
+        "y": 380,
+        "wires": [
+            [
+                "75c3bdf1a48f85a9"
+            ]
+        ]
+    },
+    {
+        "id": "75c3bdf1a48f85a9",
+        "type": "function",
+        "z": "00d79f9de308376d",
+        "name": "push",
+        "func": "if (msg.payload.d.button !== 'pushed') { \nreturn; \n} \nmsg.payload = { \n    d : { \n        lamp : \"toggle\" \n    } \n} \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 380,
+        "wires": [
+            [
+                "9b54e2472bf5512f"
+            ]
+        ]
+    },
+    {
+        "id": "6b37af3cadecc98d",
+        "type": "ui-switch",
+        "z": "00d79f9de308376d",
+        "name": "",
+        "label": "switch",
+        "group": "370afb24071ccbf1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 530,
+        "y": 300,
+        "wires": [
+            [
+                "1617d15c7057a33f"
+            ]
+        ]
+    },
+    {
+        "id": "1617d15c7057a33f",
+        "type": "function",
+        "z": "00d79f9de308376d",
+        "name": "lamp out",
+        "func": "msg.payload = { \n    d : { \n        lamp : msg.payload \n    } \n} \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 300,
+        "wires": [
+            [
+                "9b54e2472bf5512f"
+            ]
+        ]
+    },
+    {
+        "id": "3ca4cae47d4d79df",
+        "type": "function",
+        "z": "00d79f9de308376d",
+        "name": "lamp in",
+        "func": "msg.payload = msg.payload.d.lamp; \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "6b37af3cadecc98d"
+            ]
+        ]
+    },
+    {
+        "id": "a77c3a1aeaa752dd",
+        "type": "io7 in",
+        "z": "00d79f9de308376d",
+        "name": "lamp1",
+        "deviceId": "lamp1",
+        "authentication": "388de1236a0efa9c",
+        "evt": "status",
+        "fmt": "json",
+        "qos": "0",
+        "allDevices": false,
+        "allEvents": false,
+        "allFormats": false,
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "3ca4cae47d4d79df"
+            ]
+        ]
+    },
+    {
+        "id": "af237247b7758491",
+        "type": "io7 in",
+        "z": "00d79f9de308376d",
+        "name": "lux in",
+        "deviceId": "lux1",
+        "authentication": "388de1236a0efa9c",
+        "evt": "status",
+        "fmt": "json",
+        "qos": "0",
+        "allDevices": false,
+        "allEvents": false,
+        "allFormats": false,
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "119a8f277b705983",
+                "55c71c942dd4900d"
+            ]
+        ]
+    },
+    {
+        "id": "119a8f277b705983",
+        "type": "function",
+        "z": "00d79f9de308376d",
+        "name": "LUX",
+        "func": "let evt1 = { d: {} }; \nif (msg.payload.d.lux > 800) { \n    evt1.d.lamp = 'off'; \n} else { \n    evt1.d.lamp = 'on'; \n} \nreturn {payload: evt1}; ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 240,
+        "wires": [
+            [
+                "f4458280693ddf9b"
+            ]
+        ]
+    },
+    {
+        "id": "55c71c942dd4900d",
+        "type": "ui-gauge",
+        "z": "00d79f9de308376d",
+        "name": "조도",
+        "group": "370afb24071ccbf1",
+        "order": 0,
+        "value": "payload.d.lux",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "조도",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "400",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "750",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "1200",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 370,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9abc251c2a115afd",
+        "type": "ui-switch",
+        "z": "00d79f9de308376d",
+        "name": "auto",
+        "label": "switch",
+        "group": "370afb24071ccbf1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "3b11f9dd7decc4c6"
+            ]
+        ]
+    },
+    {
+        "id": "f4458280693ddf9b",
+        "type": "gate",
+        "z": "00d79f9de308376d",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 790,
+        "y": 260,
+        "wires": [
+            [
+                "9b54e2472bf5512f"
+            ]
+        ]
+    },
+    {
+        "id": "3b11f9dd7decc4c6",
+        "type": "function",
+        "z": "00d79f9de308376d",
+        "name": "auto",
+        "func": "msg.topic = 'control'; \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "f4458280693ddf9b"
+            ]
+        ]
+    }
+]
