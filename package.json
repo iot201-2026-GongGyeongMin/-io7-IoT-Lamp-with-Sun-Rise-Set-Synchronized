@@ -1,6 +1,6 @@
 {
     "name": "iot_lamp_0918",
-    "description": "3주차 lab",
+    "description": "-io7-IoT-Lamp-with-Sun-Rise-Set-Synchronized",
     "version": "0.0.1",
     "dependencies": {},
     "node-red": {

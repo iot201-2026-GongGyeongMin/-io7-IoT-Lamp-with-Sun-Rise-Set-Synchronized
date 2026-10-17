@@ -1,8 +1,8 @@
 [
     {
-        "id": "00d79f9de308376d",
+        "id": "97f90fc2bad0a9c9",
         "type": "tab",
-        "label": "플로우 1",
+        "label": "Flow 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -108,9 +108,9 @@
         "groupType": "default"
     },
     {
-        "id": "9b54e2472bf5512f",
+        "id": "9f3a3b0503be576b",
         "type": "io7 out",
-        "z": "00d79f9de308376d",
+        "z": "97f90fc2bad0a9c9",
         "authentication": "388de1236a0efa9c",
         "name": "",
         "deviceId": "lamp1",
@@ -118,15 +118,15 @@
         "fmt": "json",
         "qos": "0",
         "retain": "false",
-        "x": 950,
-        "y": 320,
+        "x": 750,
+        "y": 380,
         "wires": []
     },
     {
-        "id": "d01e93b0db519f07",
+        "id": "65a41d8b7b44c5d6",
         "type": "io7 in",
-        "z": "00d79f9de308376d",
-        "name": "buttton1",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
         "deviceId": "button1",
         "authentication": "388de1236a0efa9c",
         "evt": "status",
@@ -135,46 +135,67 @@
         "allDevices": false,
         "allEvents": false,
         "allFormats": false,
-        "x": 260,
-        "y": 380,
+        "x": 190,
+        "y": 440,
         "wires": [
             [
-                "75c3bdf1a48f85a9"
+                "5fe47200c8d80896"
             ]
         ]
     },
     {
-        "id": "75c3bdf1a48f85a9",
+        "id": "5fe47200c8d80896",
         "type": "function",
-        "z": "00d79f9de308376d",
-        "name": "push",
-        "func": "if (msg.payload.d.button !== 'pushed') { \nreturn; \n} \nmsg.payload = { \n    d : { \n        lamp : \"toggle\" \n    } \n} \nreturn msg;",
+        "z": "97f90fc2bad0a9c9",
+        "name": "Push",
+        "func": "if (msg.payload.d.button !== 'pushed') {\n    return;\n}\n\nmsg.payload = {\n    d : {\n        lamp : \"toggle\"\n    }\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
-        "y": 380,
+        "x": 590,
+        "y": 440,
         "wires": [
             [
-                "9b54e2472bf5512f"
+                "9f3a3b0503be576b"
             ]
         ]
     },
     {
-        "id": "6b37af3cadecc98d",
-        "type": "ui-switch",
-        "z": "00d79f9de308376d",
+        "id": "9a25773f538e216e",
+        "type": "io7 in",
+        "z": "97f90fc2bad0a9c9",
         "name": "",
-        "label": "switch",
+        "deviceId": "lamp1",
+        "authentication": "388de1236a0efa9c",
+        "evt": "status",
+        "fmt": "json",
+        "qos": "0",
+        "allDevices": false,
+        "allEvents": false,
+        "allFormats": false,
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "2f506732baadd4e8"
+            ]
+        ]
+    },
+    {
+        "id": "e832b3b976462799",
+        "type": "ui-switch",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
+        "label": "Switch",
         "group": "370afb24071ccbf1",
         "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "decouple": false,
+        "decouple": true,
         "topic": "topic",
         "topicType": "msg",
         "style": "",
@@ -189,80 +210,59 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 530,
-        "y": 300,
+        "x": 470,
+        "y": 380,
         "wires": [
             [
-                "1617d15c7057a33f"
+                "af12ed183a5623c3"
             ]
         ]
     },
     {
-        "id": "1617d15c7057a33f",
+        "id": "2f506732baadd4e8",
         "type": "function",
-        "z": "00d79f9de308376d",
-        "name": "lamp out",
-        "func": "msg.payload = { \n    d : { \n        lamp : msg.payload \n    } \n} \nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 300,
-        "wires": [
-            [
-                "9b54e2472bf5512f"
-            ]
-        ]
-    },
-    {
-        "id": "3ca4cae47d4d79df",
-        "type": "function",
-        "z": "00d79f9de308376d",
+        "z": "97f90fc2bad0a9c9",
         "name": "lamp in",
-        "func": "msg.payload = msg.payload.d.lamp; \nreturn msg;",
+        "func": "msg.payload = msg.payload.d.lamp;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 300,
+        "x": 340,
+        "y": 380,
         "wires": [
             [
-                "6b37af3cadecc98d"
+                "e832b3b976462799"
             ]
         ]
     },
     {
-        "id": "a77c3a1aeaa752dd",
-        "type": "io7 in",
-        "z": "00d79f9de308376d",
-        "name": "lamp1",
-        "deviceId": "lamp1",
-        "authentication": "388de1236a0efa9c",
-        "evt": "status",
-        "fmt": "json",
-        "qos": "0",
-        "allDevices": false,
-        "allEvents": false,
-        "allFormats": false,
-        "x": 230,
-        "y": 300,
+        "id": "af12ed183a5623c3",
+        "type": "function",
+        "z": "97f90fc2bad0a9c9",
+        "name": "lamp out",
+        "func": "msg.payload = {\n    d : {\n        lamp : msg.payload\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 380,
         "wires": [
             [
-                "3ca4cae47d4d79df"
+                "9f3a3b0503be576b"
             ]
         ]
     },
     {
-        "id": "af237247b7758491",
+        "id": "2255c8d8002e1fc9",
         "type": "io7 in",
-        "z": "00d79f9de308376d",
-        "name": "lux in",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
         "deviceId": "lux1",
         "authentication": "388de1236a0efa9c",
         "evt": "status",
@@ -271,40 +271,116 @@
         "allDevices": false,
         "allEvents": false,
         "allFormats": false,
-        "x": 230,
-        "y": 240,
+        "x": 190,
+        "y": 320,
         "wires": [
             [
-                "119a8f277b705983",
-                "55c71c942dd4900d"
+                "637212f95e48f23b",
+                "ecc554f3b95bea37"
             ]
         ]
     },
     {
-        "id": "119a8f277b705983",
+        "id": "ecc554f3b95bea37",
         "type": "function",
-        "z": "00d79f9de308376d",
-        "name": "LUX",
-        "func": "let evt1 = { d: {} }; \nif (msg.payload.d.lux > 800) { \n    evt1.d.lamp = 'off'; \n} else { \n    evt1.d.lamp = 'on'; \n} \nreturn {payload: evt1}; ",
+        "z": "97f90fc2bad0a9c9",
+        "name": "Lux",
+        "func": "let evt1 = { d: {} };\n\nif (msg.payload.d.lux > 800) {\n    evt1.d.lamp = 'off';\n} else {\n    evt1.d.lamp = 'on';\n}\n\nreturn {payload: evt1};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 240,
+        "x": 450,
+        "y": 320,
         "wires": [
             [
-                "f4458280693ddf9b"
+                "ef698a30d5a9b61b"
             ]
         ]
     },
     {
-        "id": "55c71c942dd4900d",
+        "id": "ef698a30d5a9b61b",
+        "type": "gate",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "closed",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 590,
+        "y": 320,
+        "wires": [
+            [
+                "9f3a3b0503be576b"
+            ]
+        ]
+    },
+    {
+        "id": "8aab065924452e91",
+        "type": "ui-switch",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
+        "label": "Auto",
+        "group": "370afb24071ccbf1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "19a1ccc6a1f0caaf"
+            ]
+        ]
+    },
+    {
+        "id": "19a1ccc6a1f0caaf",
+        "type": "function",
+        "z": "97f90fc2bad0a9c9",
+        "name": "auto",
+        "func": "msg.topic = 'control';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "ef698a30d5a9b61b"
+            ]
+        ]
+    },
+    {
+        "id": "637212f95e48f23b",
         "type": "ui-gauge",
-        "z": "00d79f9de308376d",
-        "name": "조도",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
         "group": "370afb24071ccbf1",
         "order": 0,
         "value": "payload.d.lux",
@@ -348,85 +424,184 @@
         "styleRounded": true,
         "styleGlow": false,
         "className": "",
-        "x": 370,
-        "y": 220,
+        "x": 330,
+        "y": 300,
         "wires": [
             []
         ]
     },
     {
-        "id": "9abc251c2a115afd",
-        "type": "ui-switch",
-        "z": "00d79f9de308376d",
-        "name": "auto",
-        "label": "switch",
-        "group": "370afb24071ccbf1",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "decouple": false,
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "className": "",
-        "layout": "row-spread",
-        "clickableArea": "switch",
-        "onvalue": "open",
-        "onvalueType": "str",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "close",
-        "offvalueType": "str",
-        "officon": "",
-        "offcolor": "",
-        "x": 430,
+        "id": "819d1ff6b8f6da11",
+        "type": "http request",
+        "z": "97f90fc2bad0a9c9",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.sunrise-sunset.org/json?lat=37.339496586083&lng=126.73287520461&date=today&tzid=Asia/Seoul",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "7a73bbebe1a656d7"
+            ]
+        ]
+    },
+    {
+        "id": "af74022d1c816dc5",
+        "type": "delay",
+        "z": "97f90fc2bad0a9c9",
+        "name": "on",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 450,
         "y": 180,
         "wires": [
             [
-                "3b11f9dd7decc4c6"
+                "ef698a30d5a9b61b"
             ]
         ]
     },
     {
-        "id": "f4458280693ddf9b",
-        "type": "gate",
-        "z": "00d79f9de308376d",
+        "id": "c0a9e380c9d09a1a",
+        "type": "inject",
+        "z": "97f90fc2bad0a9c9",
         "name": "",
-        "controlTopic": "control",
-        "defaultState": "open",
-        "openCmd": "open",
-        "closeCmd": "close",
-        "toggleCmd": "toggle",
-        "defaultCmd": "default",
-        "statusCmd": "status",
-        "persist": false,
-        "storeName": "memory",
-        "x": 790,
-        "y": 260,
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 03 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 100,
         "wires": [
             [
-                "9b54e2472bf5512f"
+                "819d1ff6b8f6da11"
             ]
         ]
     },
     {
-        "id": "3b11f9dd7decc4c6",
+        "id": "7a73bbebe1a656d7",
         "type": "function",
-        "z": "00d79f9de308376d",
-        "name": "auto",
-        "func": "msg.topic = 'control'; \nreturn msg;",
+        "z": "97f90fc2bad0a9c9",
+        "name": "gen schedule",
+        "func": "// Function to create a Date object from a time string (e.g., \"6:16:14 AM\")\nfunction getDateFromTimeString(timeString) {\n    const [time, period] = timeString.split(' ');\n    let [hours, minutes, seconds] = time.split(':');\n\n    hours = parseInt(hours, 10);\n    minutes = parseInt(minutes, 10);\n    seconds = parseInt(seconds, 10);\n\n    if (period === 'PM' && hours !== 12) {\n        hours += 12;\n    } else if (period === 'AM' && hours === 12) {\n        hours = 0;\n    }\n\n    const date = new Date();\n    date.setHours(hours, minutes, seconds, 0);\n    return date;\n}\n\nconst now = new Date();\n\n// Create Date objects for sunrise and sunset\nconst sunriseDate = getDateFromTimeString(msg.payload.results.sunrise);\nconst sunsetDate = getDateFromTimeString(msg.payload.results.sunset);\n\nif (sunriseDate < now) {\n    sunriseDate.setDate(sunriseDate.getDate() + 1);\n}\n\n// If the sunset time has already passed today, set it for tomorrow\nif (sunsetDate < now) {\n    sunsetDate.setDate(sunsetDate.getDate() + 1);\n}\n\n// Calculate the difference in milliseconds\nconst msToSunrise = sunriseDate.getTime() - now.getTime();\nconst msToSunset = sunsetDate.getTime() - now.getTime();\n\n// Output the results\nmsg.payload = {\n    sunrise: msToSunrise,\n    sunset: msToSunset\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 570,
-        "y": 180,
+        "x": 600,
+        "y": 100,
         "wires": [
             [
-                "f4458280693ddf9b"
+                "e060e3bba4ae8394"
+            ]
+        ]
+    },
+    {
+        "id": "cafc0fb983e8478f",
+        "type": "delay",
+        "z": "97f90fc2bad0a9c9",
+        "name": "off",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "ef698a30d5a9b61b"
+            ]
+        ]
+    },
+    {
+        "id": "94164d6a1e846754",
+        "type": "link in",
+        "z": "97f90fc2bad0a9c9",
+        "name": "sun",
+        "links": [
+            "e060e3bba4ae8394"
+        ],
+        "x": 165,
+        "y": 200,
+        "wires": [
+            [
+                "694c56c436f4a8ae"
+            ]
+        ]
+    },
+    {
+        "id": "e060e3bba4ae8394",
+        "type": "link out",
+        "z": "97f90fc2bad0a9c9",
+        "name": "sun",
+        "mode": "link",
+        "links": [
+            "94164d6a1e846754"
+        ],
+        "x": 795,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "694c56c436f4a8ae",
+        "type": "function",
+        "z": "97f90fc2bad0a9c9",
+        "name": "schedule",
+        "func": "let evt1 = { payload: 'open', topic: 'control' };\nlet evt2 = { payload: 'close', topic: 'control' };\n\nevt1.delay = msg.payload.sunrise;\nevt2.delay = msg.payload.sunset;\nmsg.topic = 'control';\nreturn [evt1, evt2];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 200,
+        "wires": [
+            [
+                "af74022d1c816dc5"
+            ],
+            [
+                "cafc0fb983e8478f"
             ]
         ]
     }
