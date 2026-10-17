@@ -8,9 +8,7 @@ https://github.com/iot201-2026-GongGyeongMin/-io7-IoT-Lamp-with-Sun-Rise-Set-Syn
 
 
 
-
-
-https://github.com/user-attachments/assets/924e7ef6-bd4b-4698-810f-b44cb3ea4e46
+https://github.com/user-attachments/assets/2f346583-1bf2-4d7a-b997-c2f0c67e655e
 
 
 
